@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/orientable",
   "textures": {
-    "all": "tfcea:block/refrigerator"
+    "top": "tfcea:block/refrigerator_top",
+    "side": "tfcea:block/refrigerator_side",
+    "front": "tfcea:block/refrigerator"
   }
 }

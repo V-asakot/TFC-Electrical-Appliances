@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BMR",
+    "PSP",
+    "BCR"
+  ],
+  "key": {
+    "B": {
+      "item": "tfc:metal/double_sheet/blue_steel"
+    },
+    "R": {
+      "item": "tfc:metal/double_sheet/red_steel"
+    },
+    "P": {
+      "item": "tfc:steel_pump"
+    },
+    "S": {
+      "tag": "forge:chests"
+    },
+    "C": {
+      "tag": "forge:rods/copper"
+    },
+    "M": {
+      "item": "tfc:brass_mechanisms"
+    }
+  },
+  "result": {
+    "item": "tfcea:appliances/refrigerator"
+  }
+}

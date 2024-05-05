@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tfcea:refrigerator"
+          "name": "tfcea:appliances/refrigerator"
         }
       ]
     }

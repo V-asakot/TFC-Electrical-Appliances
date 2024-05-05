@@ -32,7 +32,7 @@ public class TfcElectricalAppliancesCreativeTabs {
 
     @SubscribeEvent
     public static void onBuildCreativeTab(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS){
+        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(TfcElectricalAppliancesItems.REFRIGERATOR_BLOCK_ITEM);
             event.accept(TfcElectricalAppliancesItems.PORTABLE_REFRIGERATOR_ITEM);
         }

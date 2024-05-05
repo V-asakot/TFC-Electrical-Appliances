@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "tfcea:block/refrigerator",
+      "y": 90
+    },
+    "facing=north": {
       "model": "tfcea:block/refrigerator"
+    },
+    "facing=south": {
+      "model": "tfcea:block/refrigerator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "tfcea:block/refrigerator",
+      "y": 270
     }
   }
 }
