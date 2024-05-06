@@ -4,6 +4,7 @@ import io.github.vasakot.tfcea.common.blockentities.RefrigeratorBlockEntity;
 import net.dries007.tfc.common.capabilities.Capabilities;
 import net.dries007.tfc.common.container.BlockEntityContainer;
 import net.dries007.tfc.common.container.CallbackSlot;
+import net.dries007.tfc.common.container.RestrictedChestContainer;
 import net.minecraft.world.entity.player.Inventory;
 
 public class RefrigeratorContainer extends BlockEntityContainer<RefrigeratorBlockEntity> {
@@ -19,15 +20,14 @@ public class RefrigeratorContainer extends BlockEntityContainer<RefrigeratorBloc
     @Override
     protected void addContainerSlots() {
         blockEntity.getCapability(Capabilities.ITEM).ifPresent(handler -> {
-            addSlot(new CallbackSlot(blockEntity, handler, 0, 62, 19));
-            addSlot(new CallbackSlot(blockEntity, handler, 1, 80, 19));
-            addSlot(new CallbackSlot(blockEntity, handler, 2, 98, 19));
-            addSlot(new CallbackSlot(blockEntity, handler, 3, 62, 37));
-            addSlot(new CallbackSlot(blockEntity, handler, 4, 80, 37));
-            addSlot(new CallbackSlot(blockEntity, handler, 5, 98, 37));
-            addSlot(new CallbackSlot(blockEntity, handler, 6, 62, 55));
-            addSlot(new CallbackSlot(blockEntity, handler, 7, 80, 55));
-            addSlot(new CallbackSlot(blockEntity, handler, 8, 98, 55));
+            int rows = 3;
+            for (int row = 0; row < rows; ++row)
+            {
+                for (int col = 0; col < 9; ++col)
+                {
+                    addSlot(new CallbackSlot(blockEntity, handler, col + row * 9, 8 + col * 18, 18 + row * 18));
+                }
+            }
         });
     }
 }

@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 
 public class TfcElectricalAppliancesContainers {
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(Registries.MENU, TfcElectricalAppliances.MOD_ID);
-    public static final RegistryObject<MenuType<RefrigeratorContainer>> REFRIGERATOR_CONTAINER = TfcElectricalAppliancesContainers.registerBlock("refrigerator", TfcElectricalAppliancesBlocksEntities.REFRIGERATOR_BLOCK, RefrigeratorContainer::create);
+    public static final RegistryObject<MenuType<RefrigeratorContainer>> REFRIGERATOR_CONTAINER = TfcElectricalAppliancesContainers.registerBlock("refrigerator", TfcElectricalAppliancesBlocksEntities.REFRIGERATOR_BLOCK, (BlockEntityContainer.Factory<RefrigeratorBlockEntity, RefrigeratorContainer>) RefrigeratorContainer::create);
 
     private static <T extends InventoryBlockEntity<?>, C extends BlockEntityContainer<T>> RegistryObject<MenuType<C>> registerBlock(String name, Supplier<BlockEntityType<T>> type, BlockEntityContainer.Factory<T, C> factory) {
         return RegistrationHelpers.registerBlockEntityContainer(CONTAINERS, name, type, factory);

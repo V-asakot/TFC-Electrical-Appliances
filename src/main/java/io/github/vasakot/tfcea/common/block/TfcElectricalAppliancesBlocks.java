@@ -1,6 +1,7 @@
 package io.github.vasakot.tfcea.common.block;
 
 import io.github.vasakot.tfcea.TfcElectricalAppliances;
+import io.github.vasakot.tfcea.common.blockentities.RefrigeratorBlockEntity;
 import io.github.vasakot.tfcea.common.blockentities.TfcElectricalAppliancesBlocksEntities;
 import io.github.vasakot.tfcea.common.item.TfcElectricalAppliancesItems;
 import net.dries007.tfc.common.blockentities.TFCBlockEntities;
@@ -27,6 +28,7 @@ public class TfcElectricalAppliancesBlocks {
                     .requiresCorrectToolForDrops()
                     .noOcclusion()
                     .blockEntity(TfcElectricalAppliancesBlocksEntities.REFRIGERATOR_BLOCK)
+                    .serverTicks(RefrigeratorBlockEntity::serverTick)
             ));
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier) {

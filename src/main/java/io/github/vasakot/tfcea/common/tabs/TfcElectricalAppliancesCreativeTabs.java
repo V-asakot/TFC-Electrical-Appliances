@@ -21,7 +21,7 @@ public class TfcElectricalAppliancesCreativeTabs {
     public static final RegistryObject<CreativeModeTab> TFC_ELECTRICAL_APPLIANCES_TAB = TABS.register("tfcea_creative_tab",
             () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(TfcElectricalAppliancesItems.PORTABLE_REFRIGERATOR_ITEM.get()))
-                    .title(Component.translatable("itemGroup.tfcea_creative_tab"))
+                    .title(Component.translatable(String.format("itemGroup.%s.creative_tab", TfcElectricalAppliances.MOD_ID)))
                     .displayItems(TfcElectricalAppliancesCreativeTabs::fillTfceaTab)
                     .build());
 
