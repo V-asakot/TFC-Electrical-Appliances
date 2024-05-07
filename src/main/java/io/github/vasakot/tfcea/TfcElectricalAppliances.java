@@ -8,6 +8,7 @@ import io.github.vasakot.tfcea.common.container.TfcElectricalAppliancesContainer
 import io.github.vasakot.tfcea.common.item.TfcElectricalAppliancesItems;
 import io.github.vasakot.tfcea.common.tabs.TfcElectricalAppliancesCreativeTabs;
 import io.github.vasakot.tfcea.config.TfcElectricalAppliancesConfig;
+import io.github.vasakot.tfcea.network.TfcElectricalAppliancesPacketHandler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -32,6 +33,7 @@ public class TfcElectricalAppliances {
         TfcElectricalAppliancesCreativeTabs.TABS.register(eventBus);
 
         TfcElectricalAppliancesConfig.init();
+        TfcElectricalAppliancesPacketHandler.init();
         if (FMLEnvironment.dist == Dist.CLIENT)
         {
             TfcElectricalAppliancesClientEvents.init();

@@ -1,6 +1,7 @@
 package io.github.vasakot.tfcea.common.tabs;
 
 import io.github.vasakot.tfcea.TfcElectricalAppliances;
+import io.github.vasakot.tfcea.common.block.TfcElectricalAppliancesBlocks;
 import io.github.vasakot.tfcea.common.item.TfcElectricalAppliancesItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -26,15 +27,13 @@ public class TfcElectricalAppliancesCreativeTabs {
                     .build());
 
     public static void fillTfceaTab(CreativeModeTab.ItemDisplayParameters parameters, CreativeModeTab.Output out) {
-        out.accept(TfcElectricalAppliancesItems.PORTABLE_REFRIGERATOR_ITEM.get());
-        out.accept(TfcElectricalAppliancesItems.REFRIGERATOR_BLOCK_ITEM.get());
+        out.accept(TfcElectricalAppliancesBlocks.REFRIGERATOR_BLOCK.get());
     }
 
     @SubscribeEvent
     public static void onBuildCreativeTab(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
-            event.accept(TfcElectricalAppliancesItems.REFRIGERATOR_BLOCK_ITEM);
-            event.accept(TfcElectricalAppliancesItems.PORTABLE_REFRIGERATOR_ITEM);
+            event.accept(TfcElectricalAppliancesBlocks.REFRIGERATOR_BLOCK.get());
         }
     }
 }

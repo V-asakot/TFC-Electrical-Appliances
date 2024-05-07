@@ -8,6 +8,7 @@ import net.dries007.tfc.common.blocks.devices.DeviceBlock;
 import net.dries007.tfc.util.Helpers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public class RefrigeratorBlock extends DeviceBlock  implements FourWayFacingDeviceBlock {
 
@@ -29,31 +31,14 @@ public class RefrigeratorBlock extends DeviceBlock  implements FourWayFacingDevi
         registerDefaultState(getStateDefinition().any());
     }
 
-    public static <T extends RefrigeratorBlockEntity> void toggleAppliance(Level level, BlockPos pos, BlockState state, BlockEntityType<T> type)
-    {
-        level.getBlockEntity(pos, type).ifPresent(refrigerator -> {
-            final boolean activity = refrigerator.isTurnedOn();
-
-            if (activity)
-            {
-                refrigerator.turnOff();
-            }
-            else
-            {
-                refrigerator.turnOn();
-            }
-        });
-    }
-
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (!player.isShiftKeyDown()) {
-            level.getBlockEntity(pos, getExtendedProperties().<RefrigeratorBlockEntity>blockEntity()).ifPresent(refrigerator -> {
-                if (player instanceof ServerPlayer serverPlayer) {
-                    Helpers.openScreen(serverPlayer, refrigerator, pos);
-                }
-            });
-        }
+        level.getBlockEntity(pos, getExtendedProperties().<RefrigeratorBlockEntity>blockEntity()).ifPresent(refrigerator -> {
+            if (player instanceof ServerPlayer serverPlayer) {
+                Helpers.openScreen(serverPlayer, refrigerator, pos);
+            }
+        });
+
         return InteractionResult.SUCCESS;
     }
 
@@ -68,13 +53,13 @@ public class RefrigeratorBlock extends DeviceBlock  implements FourWayFacingDevi
 
     @Override
     @SuppressWarnings("deprecation")
-    public BlockState rotate(BlockState state, Rotation rot) {
+    public @NotNull BlockState rotate(BlockState state, Rotation rot) {
         return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public BlockState mirror(BlockState state, Mirror mirror) {
+    public @NotNull BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 }
