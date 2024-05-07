@@ -1,0 +1,7 @@
+{
+  "item.tfcea.appliances.portable_refrigerator": "Портативный Холодильник",
+  "block.tfcea.refrigerator": "Холодильник",
+  "itemGroup.tfcea.creative_tab": "Электроприборы TFC",
+  "tooltip.tfcea.food_trait.refrigerating": "Охлаждено",
+  "tooltip.tfcea.toggle": "Включить/выключить"
+}

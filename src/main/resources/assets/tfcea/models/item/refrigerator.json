@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "tfcea:block/refrigerator_top",
+    "side": "tfcea:block/refrigerator_side",
+    "front": "tfcea:block/refrigerator"
+  }
+}
