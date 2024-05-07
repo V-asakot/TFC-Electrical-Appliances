@@ -1,7 +1,9 @@
 package io.github.vasakot.tfcea.common.container;
 
 import io.github.vasakot.tfcea.common.blockentities.RefrigeratorBlockEntity;
+import io.github.vasakot.tfcea.common.item.TfcElectricalAppliancesFoodTraits;
 import net.dries007.tfc.common.capabilities.Capabilities;
+import net.dries007.tfc.common.capabilities.food.FoodCapability;
 import net.dries007.tfc.common.container.BlockEntityContainer;
 import net.dries007.tfc.common.container.CallbackSlot;
 import net.dries007.tfc.common.container.RestrictedChestContainer;
@@ -34,10 +36,11 @@ public class RefrigeratorContainer extends BlockEntityContainer<RefrigeratorBloc
         if (!fromSlot.hasItem())
             return ItemStack.EMPTY;
 
-        ItemStack copyFromStack = fromStack.copy();
+
 
         if (index < 27) {
             // move from block entity inventory
+            FoodCapability.removeTrait(fromStack, TfcElectricalAppliancesFoodTraits.REFRIGERATING);
             if (!moveItemStackTo(fromStack, 27, 62, false))
                 return ItemStack.EMPTY;
         } else if (index < 63) {
@@ -48,6 +51,7 @@ public class RefrigeratorContainer extends BlockEntityContainer<RefrigeratorBloc
             return ItemStack.EMPTY;
         }
 
+        ItemStack copyFromStack = fromStack.copy();
         fromSlot.setChanged();
         fromSlot.onTake(player, fromStack);
 
@@ -60,7 +64,7 @@ public class RefrigeratorContainer extends BlockEntityContainer<RefrigeratorBloc
     }
 
     public int getEnergyStoredScaled() {
-        return (int) (((float)  blockEntity.getEnergy() / (float) blockEntity.getMaxEnergy()) * 63);
+        return (int) (((float)  blockEntity.getEnergy() / (float) blockEntity.getMaxEnergy()) * 64);
     }
 
     @Override

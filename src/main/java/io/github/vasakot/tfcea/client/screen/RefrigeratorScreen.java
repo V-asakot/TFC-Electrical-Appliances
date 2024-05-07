@@ -39,9 +39,9 @@ public class RefrigeratorScreen extends BlockEntityScreen<RefrigeratorBlockEntit
     {
         int energyScaled = this.menu.getEnergyStoredScaled();
         gui.fill(this.leftPos + 177,
-                this.topPos + 40+(63-energyScaled),
-                this.leftPos + 184,
-                this.topPos + 103,
+                this.topPos + 40+(64-energyScaled),
+                this.leftPos + 185,
+                this.topPos + 104,
                 0xFFFF4757);
     }
 }
