@@ -8,8 +8,10 @@ import io.github.vasakot.tfcea.common.container.RefrigeratorContainer;
 import io.github.vasakot.tfcea.common.item.TfcElectricalAppliancesFoodTraits;
 import net.dries007.tfc.common.blockentities.InventoryBlockEntity;
 import net.dries007.tfc.common.capabilities.InventoryItemHandler;
+import net.dries007.tfc.common.capabilities.PartialItemHandler;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -29,6 +31,9 @@ public class RefrigeratorBlockEntity extends ApplianceBlockEntity<RefrigeratorBl
 
     public RefrigeratorBlockEntity(BlockPos pos, BlockState state) {
         super(TfcElectricalAppliancesBlocksEntities.REFRIGERATOR_BLOCK.get(), pos, state, RefrigeratorInventory::new, NAME,true,20);
+
+        sidedInventory.on(new PartialItemHandler(inventory).insertAll(), d -> d != Direction.DOWN);
+        sidedInventory.on(new PartialItemHandler(inventory).extractAll(), d -> d == Direction.DOWN);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, RefrigeratorBlockEntity refrigerator)
@@ -36,15 +41,15 @@ public class RefrigeratorBlockEntity extends ApplianceBlockEntity<RefrigeratorBl
         refrigerator.checkForLastTickSync();
         if (level.getGameTime() % 2 == 0)
         {
-            if(refrigerator.isTurnedOn() && refrigerator.isActive()){
+            if(refrigerator.canRefrigerate()){
                 refrigerator.consumeEnergyForTicks(2);
-                if(refrigerator.inventory.energyStorage.getEnergyStored() < refrigerator.activityTickConsumption){
+                if(refrigerator.inventory.energyStorage.getEnergyStored() < refrigerator.energyTickConsumption){
                     refrigerator.setActivity(false);
                     refrigerator.removeRefrigeratorTraitFromInventory();
                 }
             }
             else if(refrigerator.isTurnedOn() && !refrigerator.isActive()){
-                if(refrigerator.inventory.energyStorage.getEnergyStored() >= refrigerator.activityTickConsumption){
+                if(refrigerator.inventory.energyStorage.getEnergyStored() >= refrigerator.energyTickConsumption){
                     refrigerator.setActivity(true);
                     refrigerator.applyRefrigeratorTraitToInventory();
                     refrigerator.consumeEnergyForTicks(2);
@@ -59,6 +64,11 @@ public class RefrigeratorBlockEntity extends ApplianceBlockEntity<RefrigeratorBl
     @Override
     public AbstractContainerMenu createMenu(int windowID, Inventory inv, Player player) {
         return RefrigeratorContainer.create(this, inv, windowID);
+    }
+
+    public boolean canRefrigerate()
+    {
+        return isTurnedOn() && isActive();
     }
 
     @Override
@@ -76,6 +86,7 @@ public class RefrigeratorBlockEntity extends ApplianceBlockEntity<RefrigeratorBl
         turnOff();
         super.ejectInventory();
     }
+
     @Override
     public void energyLevelChanged()
     {
@@ -90,7 +101,9 @@ public class RefrigeratorBlockEntity extends ApplianceBlockEntity<RefrigeratorBl
     @Override
     protected void turnOn() {
         super.turnOn();
-        applyRefrigeratorTraitToInventory();
+        if(canRefrigerate()){
+            applyRefrigeratorTraitToInventory();
+        }
     }
 
     private void applyRefrigeratorTraitToInventory(){
@@ -119,10 +132,19 @@ public class RefrigeratorBlockEntity extends ApplianceBlockEntity<RefrigeratorBl
         @Override
         public void setStackInSlot(int slot, ItemStack stack)
         {
-            if(refrigerator.isTurnedOn() && refrigerator.isActive() && !FoodCapability.hasTrait(stack, TfcElectricalAppliancesFoodTraits.REFRIGERATING)){
+            if(refrigerator.canRefrigerate() && !FoodCapability.hasTrait(stack, TfcElectricalAppliancesFoodTraits.REFRIGERATING)){
                 super.setStackInSlot(slot, FoodCapability.applyTrait(stack.copy(), TfcElectricalAppliancesFoodTraits.REFRIGERATING));
             }else{
                 super.setStackInSlot(slot, stack.copy());
+            }
+        }
+
+        @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if(refrigerator.canRefrigerate() && !FoodCapability.hasTrait(stack, TfcElectricalAppliancesFoodTraits.REFRIGERATING)){
+                return super.insertItem(slot, FoodCapability.applyTrait(stack.copy(), TfcElectricalAppliancesFoodTraits.REFRIGERATING), simulate);
+            }else{
+                return  super.insertItem(slot, stack.copy(), simulate);
             }
         }
 

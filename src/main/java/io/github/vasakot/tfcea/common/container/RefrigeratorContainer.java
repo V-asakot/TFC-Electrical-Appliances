@@ -6,7 +6,6 @@ import net.dries007.tfc.common.capabilities.Capabilities;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
 import net.dries007.tfc.common.container.BlockEntityContainer;
 import net.dries007.tfc.common.container.CallbackSlot;
-import net.dries007.tfc.common.container.RestrictedChestContainer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -35,9 +34,7 @@ public class RefrigeratorContainer extends BlockEntityContainer<RefrigeratorBloc
 
         if (!fromSlot.hasItem())
             return ItemStack.EMPTY;
-
-
-
+        
         if (index < 27) {
             // move from block entity inventory
             FoodCapability.removeTrait(fromStack, TfcElectricalAppliancesFoodTraits.REFRIGERATING);

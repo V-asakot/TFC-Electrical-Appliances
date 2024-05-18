@@ -22,14 +22,15 @@ public class ApplianceBlockEntity<C extends IItemHandlerModifiable&INBTSerializa
     private boolean isTurnedOn;
     private boolean isActive;
 
-    public final int activityTickConsumption;
+    public final int energyTickConsumption;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+
 
     public ApplianceBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, InventoryFactory<C> inventoryFactory, Component defaultName, boolean isTurnedOn, int activityConsumption) {
         super(type, pos, state, inventoryFactory, defaultName);
         this.isTurnedOn = isTurnedOn;
         this.isActive = false;
-        this.activityTickConsumption = activityConsumption;
+        this.energyTickConsumption = activityConsumption;
     }
 
     @Override
@@ -78,7 +79,7 @@ public class ApplianceBlockEntity<C extends IItemHandlerModifiable&INBTSerializa
     }
 
     public void consumeEnergyForTicks(int ticks){
-        inventory.consumeEnergy(activityTickConsumption * ticks);
+        inventory.consumeEnergy(energyTickConsumption * ticks);
     }
 
     @Override
